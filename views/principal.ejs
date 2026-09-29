@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Painel Principal - Almoxarifado</title>
+    <!-- Se você quiser, pode puxar o seu CSS aqui depois! -->
+    <!-- <link rel="stylesheet" href="/css/style.css"> -->
+</head>
+<body>
+    
+    <div style="text-align: center; margin-top: 50px;">
+        
+        <!-- Requisito 5.1.1 do PDF: Exibir nome do usuário -->
+        <h1>Olá, <%= nomeDoUsuario %>!</h1>
+        <p>Bem-vindo ao sistema de gestão do almoxarifado.</p>
+
+        <hr>
+
+        <div style="margin: 30px;">
+            <!-- Requisito 5.1.3 do PDF: Acessar Cadastro de Produto -->
+            <a href="/produtos" style="padding: 10px 20px; border: 1px solid black; text-decoration: none;">📦 Cadastro de Produtos</a>
+            
+            &nbsp;&nbsp;&nbsp; <!-- Espacinho -->
+
+            <!-- Requisito 5.1.4 do PDF: Acessar Gestão de Estoque -->
+            <a href="/estoque" style="padding: 10px 20px; border: 1px solid black; text-decoration: none;">📋 Gestão de Estoque</a>
+        </div>
+
+        <br><br>
+
+        <!-- Requisito 5.1.2 do PDF: Fazer logout -->
+        <a href="/logout" style="color: red; text-decoration: none; font-weight: bold;">Sair do Sistema (Logout)</a>
+        
+    </div>
+
+</body>
+</html>

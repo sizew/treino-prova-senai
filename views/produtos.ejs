@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Produtos</title>
+</head>
+<body>
+    <div style="padding: 20px;">
+
+        <a href="/principal">⬅ Voltar para o Início</a>
+        <h2>Lista de Produtos no Estoque</h2>
+
+        <table border="1" cellpadding="10" cellspacing="0" style="width: 100%; margin-top: 20px;">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome da Embalagem</th>
+                    <th>Descrição</th>
+                    <th>Qtd Atual</th>
+                    <th>Estoque Mínimo</th>
+                    <th>Ações</th>  <!-- 1. Adicionei o título da nova coluna -->
+                </tr>
+            </thead>
+
+            <tbody>
+                <% produtos.forEach(function(item) { %>
+                    <tr>
+                        <td><%= item.id %></td>
+                        <td><%= item.nome %></td>
+                        <td><%= item.descricao %></td>
+                        <td><%= item.quantidade_atual %></td>
+                        <td><%= item.estoque_minimo %></td>
+
+                        <!-- 2. Nova coluna com o botão de excluir -->
+                        <td>
+                            <form action="/produtos/excluir" method="POST">
+                                <!-- 3. Campo invisível que manda o ID do produto -->
+                                <input type="hidden" name="id" value="<%= item.id %>">
+                                <button type="submit">Excluir</button>
+                                <a href="/produtos/editar?id=<%= item.id %>">Editar</a>
+                            </form>
+                        </td>
+
+                    </tr>
+                <% }); %> <!-- 4. O forEach fecha DEPOIS do </tr> -->
+            </tbody>
+        </table>
+
+        <h3>Adicionar Novo Produto</h3>
+        <form action="/produtos/salvar" method="POST">
+            <input type="text" name="nome" placeholder="Nome do Produto" required>
+            <input type="text" name="descricao" placeholder="Descrição" required>
+            <input type="number" name="quantidade_atual" placeholder="Quantidade Atual" required>
+            <input type="number" name="estoque_minimo" placeholder="Estoque Mínimo" required>
+            <button type="submit">Salvar Produto</button>
+        </form>
+
+    </div>
+</body>
+</html>
