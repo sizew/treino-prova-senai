@@ -87,13 +87,13 @@ Sistema/
 ### 1. Clonar o repositório
 
 ```bash
-git clone URL_DO_REPOSITORIO
+git clone https://github.com/sizew/treino-prova-senai
 ```
 
 ### 2. Entrar na pasta
 
 ```bash
-cd Sistema
+cd treino-prova-senani
 ```
 
 ### 3. Instalar as dependências
@@ -218,6 +218,9 @@ http://localhost:3000
 | 7 | Interface de gestão de estoque | 🚧 |
 | 8 | Casos de teste de software | 🚧 |
 | 9 | Requisitos de infraestrutura | 🚧 |
+
+
+# NÃO ATUALIZEI A CHECKLIST AINDA!!
 
 ---
 
