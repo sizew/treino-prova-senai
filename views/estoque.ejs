@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestão de Estoque</title>
+</head>
+<body>
+    <div style="padding: 20px;">
+        <a href="/principal">⬅ Voltar para o Início</a>
+        <h2>Gestão de Estoque</h2>
+
+        <!-- Requisitos 7.1.2 e 7.1.3: Formulário de Movimentação -->
+        <fieldset style="margin-bottom: 20px; padding: 15px;">
+            <legend>Registrar Nova Movimentação</legend>
+            <form action="/estoque/movimentar" method="POST">
+                
+                <label>Produto:</label>
+                <select name="produto_id" required>
+                    <option value="">Selecione um produto...</option>
+                    <!-- O EJS preenche a lista (já vem em ordem alfabética!) -->
+                    <% produtos.forEach(function(item) { %>
+                        <option value="<%= item.id %>"><%= item.nome %> (Atual: <%= item.quantidade_atual %>)</option>
+                    <% }); %>
+                </select>
+
+                <label>Tipo:</label>
+                <select name="tipo_movimentacao" required>
+                    <option value="entrada">Entrada (➕)</option>
+                    <option value="saida">Saída (➖)</option>
+                </select>
+
+                <label>Quantidade:</label>
+                <input type="number" name="quantidade" min="1" required>
+
+                <label>Data:</label>
+                <input type="datetime-local" name="data_operacao" required>
+
+                <button type="submit">Salvar Movimentação</button>
+            </form>
+        </fieldset>
+
+        <!-- Requisito 7.1.1: Lista ordenada (que já fizemos no Node!) -->
+        <h3>Posição Atual do Estoque</h3>
+        <table border="1" cellpadding="10" cellspacing="0" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>Nome da Embalagem</th>
+                    <th>Quantidade Atual</th>
+                    <th>Estoque Mínimo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% produtos.forEach(function(item) { %>
+                    <tr>
+                        <td><%= item.nome %></td>
+                        <td><%= item.quantidade_atual %></td>
+                        <td><%= item.estoque_minimo %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+
+    </div>
+</body>
+</html>

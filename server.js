@@ -8,9 +8,9 @@ const db = new Database('almoxarifado.db');
 const bancoPronto = db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='usuarios'").get();
 
 if (!bancoPronto) {
-  // Se não existir, ele lê o seu arquivo .sql da Fase 1 e cria tudo!
+
   console.log("Primeira vez rodando... Criando o banco de dados!");
-  const scriptSql = fs.readFileSync('almoxarifado_db.sql', 'utf8'); // Coloque o nome exato do seu arquivo .sql aqui
+  const scriptSql = fs.readFileSync('almoxarifado_db.sql', 'utf8');
   db.exec(scriptSql);
 }
 
@@ -106,24 +106,76 @@ app.get('/produtos/editar', (req, res) => {
 
   const EditarProdutos = db.prepare('SELECT * FROM produtos WHERE id = ?').get(id);
 
-  res.render('editar', {produto: EditarProdutos });
+  res.render('editar', { produto: EditarProdutos });
 });
 
-  app.post('/produtos/atualizar', (req,res) => {
-    const nomeDigitado = req.body.nome;
-    const descricaoDigitada = req.body.descricao;
-    const quantidade_atualDigitada = req.body.quantidade_atual;
-    const estoque_minimoDigitado = req.body.estoque_minimo;
-    const id = req.body.id;
+app.post('/produtos/atualizar', (req, res) => {
+  const nomeDigitado = req.body.nome;
+  const descricaoDigitada = req.body.descricao;
+  const quantidade_atualDigitada = req.body.quantidade_atual;
+  const estoque_minimoDigitado = req.body.estoque_minimo;
+  const id = req.body.id;
 
-    const comandoSql = 'UPDATE produtos SET nome = ?, descricao = ?, quantidade_atual = ?, estoque_minimo = ? WHERE id = ?'
+  const comandoSql = 'UPDATE produtos SET nome = ?, descricao = ?, quantidade_atual = ?, estoque_minimo = ? WHERE id = ?'
 
-    db.prepare(comandoSql).run(nomeDigitado, descricaoDigitada, quantidade_atualDigitada, estoque_minimoDigitado, id);
+  db.prepare(comandoSql).run(nomeDigitado, descricaoDigitada, quantidade_atualDigitada, estoque_minimoDigitado, id);
 
-    res.redirect('/produtos')
+  res.redirect('/produtos')
 
-  });
+});
+
+app.get('/estoque', (req, res) => {
+
+  if (!req.session.usuarioLogado) {
+    return res.redirect('/login.html');
+  }
+  const comandoSql = 'SELECT * FROM produtos ORDER BY nome ASC';
+  const produtosOrdenados = db.prepare(comandoSql).all();
+
+  res.render('estoque', { produtos: produtosOrdenados });
+});
+
+app.post('/estoque/movimentar', (req, res) => {
+  const produto_id = req.body.produto_id;
+  const tipo_movimentacao = req.body.tipo_movimentacao;
+  const quantidade = req.body.quantidade;
+  const data_operacao = req.body.data_operacao;
+
+  const nomeDoUsuario = req.session.usuarioLogado;
+  const usuarioEncontrado = db.prepare('SELECT * FROM usuarios WHERE nome = ?').get(nomeDoUsuario);
+  const usuarioId = usuarioEncontrado.id;
+
+  const gravarMovi = 'INSERT INTO movimentacoes (produto_id, usuario_id, tipo_movimentacao, quantidade, data_operacao) VALUES (?, ?, ?, ?, ?)';
+  db.prepare(gravarMovi).run(produto_id, usuarioId, tipo_movimentacao, quantidade, data_operacao);
+
+  if (tipo_movimentacao === 'entrada') {
+    const sqlSoma = 'UPDATE produtos SET quantidade_atual = quantidade_atual + ? WHERE id = ?';
+    db.prepare(sqlSoma).run(quantidade, produto_id);
+  } else {
+    // 1. Faz a subtração normal
+    const sqlSubtrai = 'UPDATE produtos SET quantidade_atual = quantidade_atual - ? WHERE id = ?';
+    db.prepare(sqlSubtrai).run(quantidade, produto_id);
+
+    // 2. Busca como o produto ficou depois da subtração
+    const produtoAtualizado = db.prepare('SELECT nome, quantidade_atual, estoque_minimo FROM produtos WHERE id = ?').get(produto_id);
+
+    // 3. Verifica se a quantidade ficou abaixo do mínimo
+    if (produtoAtualizado.quantidade_atual < produtoAtualizado.estoque_minimo) {
+      // Manda um alerta de erro na tela e depois redireciona
+      return res.send(`
+        <script>
+          alert("ALERTA CRÍTICO: O produto '${produtoAtualizado.nome}' está abaixo do estoque mínimo!");
+          window.location.href = "/estoque";
+        </script>
+      `);
+    }
+  }
+
+  // Volta para a tela de estoque (se for entrada ou se não deu alerta)
+  res.redirect('/estoque');
+});
+
 
 app.listen(PORT, () => {
   console.log(`Servidor está online em http://localhost:${PORT}/login.html`);
-});
+}); 
