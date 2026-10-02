@@ -70,7 +70,8 @@ Sistema/
 ├── views/
 │   ├── editar.ejs
 │   ├── principal.ejs
-│   └── produtos.ejs
+│   ├── produtos.ejs
+│   └── estoque.ejs
 │
 ├── almoxarifado_db.sql
 ├── package.json
@@ -117,7 +118,7 @@ npx nodemon server.js
 ### 5. Acessar
 
 ```text
-http://localhost:3000
+http://localhost:3000/login.html
 ```
 
 ---
@@ -126,54 +127,54 @@ http://localhost:3000
 
 ## 🗄️ Banco de dados
 
-- [ ] Criar banco `almoxarifado_db`
-- [ ] Criar tabelas
-- [ ] Definir chaves primárias
-- [ ] Definir chaves estrangeiras
-- [ ] Inserir pelo menos 3 registros por tabela
-- [ ] Criar script `almoxarifado_db.sql`
+- [x] Criar banco `almoxarifado_db`
+- [x] Criar tabelas
+- [x] Definir chaves primárias
+- [x] Definir chaves estrangeiras
+- [x] Inserir pelo menos 3 registros por tabela
+- [x] Criar script `almoxarifado_db.sql`
 - [ ] Criar DER
 
 ## 🔐 Login
 
-- [ ] Criar tela de login
-- [ ] Validar usuário
-- [ ] Validar senha
-- [ ] Exibir mensagem em caso de erro
-- [ ] Criar sessão
-- [ ] Implementar logout
+- [x] Criar tela de login
+- [x] Validar usuário
+- [x] Validar senha
+- [x] Exibir mensagem em caso de erro
+- [x] Criar sessão
+- [x] Implementar logout
 
 ## 🏠 Interface principal
 
-- [ ] Exibir nome do usuário logado
-- [ ] Botão de logout
-- [ ] Acesso ao cadastro de produtos
-- [ ] Acesso à gestão de estoque
+- [x] Exibir nome do usuário logado
+- [x] Botão de logout
+- [x] Acesso ao cadastro de produtos
+- [x] Acesso à gestão de estoque
 
 ## 📦 Cadastro de produtos
 
-- [ ] Listar produtos
+- [x] Listar produtos
 - [ ] Criar busca
-- [ ] Cadastrar produto
-- [ ] Editar produto
-- [ ] Excluir produto
-- [ ] Validar campos
-- [ ] Exibir alertas de validação
-- [ ] Voltar para a interface principal
+- [x] Cadastrar produto
+- [x] Editar produto
+- [x] Excluir produto
+- [x] Validar campos
+- [x] Exibir alertas de validação
+- [x] Voltar para a interface principal
 
 ## 📊 Gestão de estoque
 
-- [ ] Listar produtos
-- [ ] Ordenar produtos alfabeticamente
-- [ ] Selecionar produto
-- [ ] Criar entrada de estoque
-- [ ] Criar saída de estoque
-- [ ] Informar data da movimentação
-- [ ] Atualizar quantidade do estoque
-- [ ] Definir estoque mínimo
-- [ ] Alertar estoque abaixo do mínimo
-- [ ] Registrar histórico das movimentações
-- [ ] Registrar usuário responsável
+- [x] Listar produtos
+- [x] Ordenar produtos alfabeticamente
+- [x] Selecionar produto
+- [x] Criar entrada de estoque
+- [x] Criar saída de estoque
+- [x] Informar data da movimentação
+- [x] Atualizar quantidade do estoque
+- [x] Definir estoque mínimo
+- [x] Alertar estoque abaixo do mínimo
+- [x] Registrar histórico das movimentações
+- [x] Registrar usuário responsável
 
 ## 🧪 Testes
 
@@ -198,10 +199,10 @@ http://localhost:3000
 
 - [ ] Requisitos funcionais
 - [ ] DER
-- [ ] Script SQL
+- [x] Script SQL
 - [ ] Casos de teste
 - [ ] Requisitos de infraestrutura
-- [ ] README.md
+- [x] README.md
 
 ---
 
@@ -211,16 +212,13 @@ http://localhost:3000
 |---|---|---|
 | 1 | Requisitos funcionais | 🚧 |
 | 2 | Diagrama Entidade-Relacionamento (DER) | 🚧 |
-| 3 | Script de criação e população do banco | 🚧 |
-| 4 | Interface de autenticação | 🚧 |
-| 5 | Interface principal | 🚧 |
-| 6 | Interface de cadastro de produto | 🚧 |
-| 7 | Interface de gestão de estoque | 🚧 |
+| 3 | Script de criação e população do banco | ✅ |
+| 4 | Interface de autenticação | ✅ |
+| 5 | Interface principal | ✅ |
+| 6 | Interface de cadastro de produto | 🚧 (Falta Campo de Busca) |
+| 7 | Interface de gestão de estoque | ✅ |
 | 8 | Casos de teste de software | 🚧 |
 | 9 | Requisitos de infraestrutura | 🚧 |
-
-
-# NÃO ATUALIZEI A CHECKLIST AINDA!!
 
 ---
 
