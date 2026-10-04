@@ -154,7 +154,7 @@ http://localhost:3000/login.html
 ## 📦 Cadastro de produtos
 
 - [x] Listar produtos
-- [ ] Criar busca
+- [x] Criar busca
 - [x] Cadastrar produto
 - [x] Editar produto
 - [x] Excluir produto
@@ -215,7 +215,7 @@ http://localhost:3000/login.html
 | 3 | Script de criação e população do banco | ✅ |
 | 4 | Interface de autenticação | ✅ |
 | 5 | Interface principal | ✅ |
-| 6 | Interface de cadastro de produto | 🚧 (Falta Campo de Busca) |
+| 6 | Interface de cadastro de produto | ✅ |
 | 7 | Interface de gestão de estoque | ✅ |
 | 8 | Casos de teste de software | 🚧 |
 | 9 | Requisitos de infraestrutura | 🚧 |
