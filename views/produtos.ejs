@@ -9,6 +9,16 @@
 
         <a href="/principal">⬅ Voltar para o Início</a>
         <h2>Lista de Produtos no Estoque</h2>
+        
+        <fieldset style="margin-bottom: 20px; padding: 10px;">
+            <legend>Pesquisar Produto</legend>
+            <form action="/produtos" method="GET">
+                <input type="text" name="busca" placeholder="Digite parte do nome..." required>
+                <button type="submit">Buscar 🔍</button>
+                <a href="/produtos" style="margin-left: 10px;">Limpar</a>
+            </form>
+        </fieldset>
+        <!-- ============================================== -->
 
         <table border="1" cellpadding="10" cellspacing="0" style="width: 100%; margin-top: 20px;">
             <thead>

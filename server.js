@@ -64,12 +64,21 @@ app.get('/logout', (req, res) => {
 
 
 app.get('/produtos', (req, res) => {
-  if (!req.session.usuarioLogado) {
+  if(!req.session.usuarioLogado) {
     return res.redirect('/login.html');
   }
-  const todosOsProdutos = db.prepare('SELECT * FROM produtos').all();
 
-  res.render('produtos', { produtos: todosOsProdutos });
+  const termo = req.query.busca;
+  let listaDeProdutos;
+
+  if(termo) {
+    const sqlBusca = 'SELECT * FROM produtos WHERE nome LIKE ?';
+    listaDeProdutos = db.prepare(sqlBusca).all('%' + termo + '%');
+  } else {
+    listaDeProdutos = db.prepare('SELECT * FROM produtos').all();
+  }
+
+  res.render('produtos', {produtos: listaDeProdutos});
 });
 
 app.post('/produtos/salvar', (req, res) => {
@@ -174,6 +183,9 @@ app.post('/estoque/movimentar', (req, res) => {
   // Volta para a tela de estoque (se for entrada ou se não deu alerta)
   res.redirect('/estoque');
 });
+
+
+
 
 
 app.listen(PORT, () => {
